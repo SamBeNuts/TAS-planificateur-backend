@@ -1,0 +1,8 @@
+{
+  "name": "proj-integrateur",
+  "version": "1.0.0",
+  "devDependencies": {
+    "serverless-dynamodb-local": "^0.2.39",
+    "serverless-offline": "^6.8.0"
+  }
+}
