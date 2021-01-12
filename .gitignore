@@ -5,6 +5,7 @@ jspm_packages
 # Serverless directories
 .serverless
 .dynamodb
+.build
 
 # Python
 */__pycache__/*
