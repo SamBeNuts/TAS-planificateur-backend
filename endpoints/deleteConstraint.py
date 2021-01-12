@@ -7,11 +7,11 @@ def handler(event, context):
     try:
         Dynamo.delete(
             Key={
-                "PK": "PROJ#" + event['pathParameters']['date'],
-                "SK": "CONS#" + event['pathParameters']['code'],
+                "PK": "CONSTRAINT",
+                "SK": event['pathParameters']['code'],
             }
         )
-        EC2.start_instance()
+        EC2.start_instance(event['queryStringParameters'])
         return Responses._204()
     except ClientError as e:
         return Responses._CustomResponse(e.response['Error']['Message'], e.response['ResponseMetadata']['HTTPStatusCode'])

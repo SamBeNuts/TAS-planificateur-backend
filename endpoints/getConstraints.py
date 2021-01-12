@@ -5,10 +5,9 @@ from botocore.exceptions import ClientError
 def handler(event, context):
     try:
         response = Dynamo.query(
-            KeyConditionExpression="PK=:PK AND begins_with(SK, :SK)",
+            KeyConditionExpression="PK=:PK",
             ExpressionAttributeValues={
-                ":PK": "PROJ#" + event['pathParameters']['date'],
-                ":SK": "CONS",
+                ":PK": "CONSTRAINT",
             }
         )
         if 'Items' in response and len(response['Items']) > 0:

@@ -7,11 +7,14 @@ provider:
 plugins:
   - serverless-offline
   - serverless-dynamodb-local
+  - serverless-python-requirements
 package:
   exclude:
     - .dynamodb/**
     - seed-data/**
 custom:
+  pythonRequirements:
+    dockerizePip: true
   dynamoTable: ProjIntegrateur
   dynamodb:
     stages:
@@ -24,30 +27,30 @@ custom:
       test:
         sources:
           - table: ${self:custom.dynamoTable}
-            sources: [seed-data/proj-integrateur.json]
+            sources: [seed-data/proj-integrateur.json, seed-data/Solution_PPC_15_sec.json]
 functions:
-  getProjects:
-    handler: endpoints/getProjects.handler
+  getProject:
+    handler: endpoints/getProject.handler
     role: ServiceRole
     events:
       - http:
-          path: projects
+          path: project/parameters
           method: get
           cors: true
-  createProject:
-    handler: endpoints/createProject.handler
+  editProject:
+    handler: endpoints/editProject.handler
     role: ServiceRole
     events:
       - http:
-          path: projects/{date}
-          method: put
+          path: project/parameters/{meca1}/{qual1}/{meca2}/{qual2}/{duration}
+          method: post
           cors: true
   getSolution:
     handler: endpoints/getSolution.handler
     role: ServiceRole
     events:
       - http:
-          path: projects/{date}/solution
+          path: project/solution
           method: get
           cors: true
   getConstraints:
@@ -55,7 +58,7 @@ functions:
     role: ServiceRole
     events:
       - http:
-          path: projects/{date}/constraints
+          path: project/constraints
           method: get
           cors: true
   createConstraint:
@@ -63,7 +66,7 @@ functions:
     role: ServiceRole
     events:
       - http:
-          path: projects/{date}/constraints
+          path: project/constraints
           method: put
           cors: true
   editConstraint:
@@ -71,7 +74,7 @@ functions:
     role: ServiceRole
     events:
       - http:
-          path: projects/{date}/constraints/{code}
+          path: project/constraints/{code}
           method: post
           cors: true
   deleteConstraint:
@@ -79,7 +82,7 @@ functions:
     role: ServiceRole
     events:
       - http:
-          path: projects/{date}/constraints/{code}
+          path: project/constraints/{code}
           method: delete
           cors: true
   restartSolver:
@@ -140,6 +143,7 @@ resources:
                 - Effect: Allow
                   Action:
                     - ec2:StartInstances
+                    - ec2:RebootInstances
                   Resource:
                     - arn:aws:ec2:${self:provider.region}:*:instance/*
                 - Effect: Allow

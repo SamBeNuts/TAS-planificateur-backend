@@ -5,16 +5,19 @@ from botocore.exceptions import ClientError
 from datetime import datetime
 
 def handler(event, context):
-    item = {
-            "PK": "CONSTRAINT",
-            "SK": event['pathParameters']['code'],
-            "modifiedAt": datetime.now().isoformat()
-        }
-    for key, value in event['queryStringParameters'].items():
-        if key != 'force':
-            item[key] = value
+    parameters = event["pathParameters"]
     try:
-        Dynamo.put(Item=item)
+        Dynamo.put(Item={
+            "PK": "PROJECT",
+            "SK": "PARAMETERS",
+            "MECA1": parameters["meca1"],
+            "QUAL1": parameters["qual1"],
+            "MECA2": parameters["meca2"],
+            "QUAL2": parameters["qual2"],
+            "DURATION": parameters["duration"],
+            "METHOD": 1,
+            "modifiedAt": datetime.now().isoformat()
+        })
         EC2.start_instance(event['queryStringParameters'])
         return Responses._204()
     except ClientError as e:

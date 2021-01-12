@@ -1,21 +1,23 @@
 [
     {
         "PK": "PROJECT",
-        "SK": "2020-12-17"
+        "SK": "PARAMETERS",
+        "MECA1": 2,
+        "QUAL1": 2,
+        "MECA2": 2,
+        "QUAL2": 2,
+        "DURATION": 20
     },
     {
-        "PK": "PROJ#2020-12-17",
-        "SK": "SOL#2020-12-17T20:43:18.129Z",
-        "SOL": "1"
+        "PK": "SOLUTION",
+        "SK": "2020-12-17T20:43:18.129Z",
+        "METHOD": 1,
+        "DURATION": 20,
+        "JSON": ""
     },
     {
-        "PK": "PROJ#2020-12-17",
-        "SK": "SOL#2020-12-18T21:52:12.867Z",
-        "SOL": "2"
-    },
-    {
-        "PK": "PROJ#2020-12-17",
-        "SK": "CONS#2020-12-18T19:21:46.283Z",
+        "PK": "CONSTRAINT",
+        "SK": "2020-12-18T19:21:46.283Z",
         "TYPE": "MECA"
     }
 ]
