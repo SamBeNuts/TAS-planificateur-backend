@@ -6,7 +6,7 @@ if not ec2:
     ec2 = boto3.resource('ec2', region_name='eu-west-3')
 
 def start_instance(parameters=None):
-    ec2Instance = ec2.Instance('i-0d65edf0569acd879')
+    ec2Instance = ec2.Instance('i-0f0849973de8d5cf4')
     state = ec2Instance.state['Name']
     if state == 'stopped':
         ec2Instance.start()
