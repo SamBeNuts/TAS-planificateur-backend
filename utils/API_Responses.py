@@ -1,4 +1,12 @@
 import json
+import decimal
+
+def _DecimalEncoder(o):
+    if isinstance(o, decimal.Decimal):
+        if o % 1 > 0:
+            return float(o)
+        return int(o)
+    return json.JSONEncoder.default(o)
 
 def _CustomResponse(data = None, statusCode = 500):
     return {
@@ -8,7 +16,7 @@ def _CustomResponse(data = None, statusCode = 500):
             'Access-Control-Allow-Origin': '*',
         },
         'statusCode': statusCode,
-        'body': json.dumps(data, indent=2),
+        'body': json.dumps(data, indent=2, default=_DecimalEncoder),
     }
 
 # Ok

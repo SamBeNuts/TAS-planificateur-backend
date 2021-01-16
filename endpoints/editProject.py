@@ -10,11 +10,11 @@ def handler(event, context):
         Dynamo.put(Item={
             "PK": "PROJECT",
             "SK": "PARAMETERS",
-            "MECA1": parameters["meca1"],
-            "QUAL1": parameters["qual1"],
-            "MECA2": parameters["meca2"],
-            "QUAL2": parameters["qual2"],
-            "DURATION": parameters["duration"],
+            "MECA1": int(parameters["meca1"]),
+            "QUAL1": int(parameters["qual1"]),
+            "MECA2": int(parameters["meca2"]),
+            "QUAL2": int(parameters["qual2"]),
+            "DURATION": int(parameters["duration"]),
             "METHOD": 1,
             "modifiedAt": datetime.now().isoformat()
         })
