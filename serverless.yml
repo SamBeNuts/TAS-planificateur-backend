@@ -53,6 +53,14 @@ functions:
           path: project/solution
           method: get
           cors: true
+  addSolution:
+    handler: endpoints/addSolution.handler
+    role: ServiceRole
+    events:
+      - http:
+          path: project/solution
+          method: put
+          cors: true
   getConstraints:
     handler: endpoints/getConstraints.handler
     role: ServiceRole

@@ -16,6 +16,8 @@ def handler(event, context):
         )
         if 'Items' in response and len(response['Items']) > 0 and 'JSON' in response['Items'][0]:
             json = response['Items'][0]['JSON']
+            if event['queryStringParameters'] is not None and event['queryStringParameters']['gantt'] != '1':
+                return Responses._200(json)
             return {
                 'headers': {
                     'Content-Type': 'text/html',
@@ -34,4 +36,4 @@ def create_html_gantt_from_json(json):
     solution = pd.DataFrame(json)
     solution = solution[solution.IsPresent == True]
     fig = ff.create_gantt(solution, index_col='Part', show_colorbar=True, group_tasks=True)
-    return fig.to_html(include_plotlyjs=False, full_html=False)
+    return fig.to_html(full_html=False)
