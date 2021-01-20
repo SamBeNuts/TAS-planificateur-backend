@@ -6,7 +6,6 @@ import json
 
 def handler(event, context):
     try:
-        print(event)
         Dynamo.put(
             Item={
                 "PK": "SOLUTION",
